@@ -1,0 +1,193 @@
+﻿
+<src:ItemContextPane
+  x:Class="Plugin_EnglishDictionary.ContextPane"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:src="clr-namespace:Quokka.ListItems;assembly=Quokka"
+  Title="ContextPane"
+  d:DesignHeight="300"
+  d:DesignWidth="800"
+  KeyDown="Page_KeyDown"
+  UseLayoutRounding="True"
+  mc:Ignorable="d">
+  <Page.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Quokka;component/SearchWindow/ScrollBar.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Page.Resources>
+  <Border
+    Width="auto"
+    Height="auto"
+    MinHeight="{DynamicResource ContextPaneMinHeight}"
+    d:Background="#f3f3f3"
+    d:BorderBrush="#e5e5e5"
+    d:BorderThickness="1"
+    d:CornerRadius="15"
+    d:MinHeight="64"
+    Background="{DynamicResource ContextPaneBgColor}"
+    BorderBrush="{DynamicResource ContextPaneBorderColor}"
+    BorderThickness="{DynamicResource ContextPaneBorderThickness}"
+    CornerRadius="{DynamicResource ContextPaneCornerRounding}">
+    <Grid
+      Margin="{DynamicResource ContextPaneContentMargin}"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="{DynamicResource ContextPaneContentVerticalAlignment}"
+      d:Margin="0,0,0,0"
+      d:VerticalAlignment="Center">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="7*" />
+        <ColumnDefinition Width="3*" />
+      </Grid.ColumnDefinitions>
+      <Grid
+        Grid.Column="0"
+        HorizontalAlignment="{DynamicResource ContextPaneContentHorizontalAlignment}"
+        d:HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox
+          x:Name="WordText"
+          Grid.Row="1"
+          Margin="{DynamicResource NameTextMargin}"
+          d:FontSize="16"
+          d:Margin="0,0,0,0"
+          d:Text="Word"
+          Background="Transparent"
+          BorderThickness="0"
+          FontFamily="{DynamicResource AppFont}"
+          FontSize="{DynamicResource NameTextSize}"
+          Foreground="{DynamicResource NameTextColor}"
+          IsReadOnly="True"
+          Text=""
+          UseLayoutRounding="True" />
+
+        <TextBox
+          x:Name="PartOfSpeech"
+          Grid.Row="2"
+          Margin="{DynamicResource DescTextMargin}"
+          d:FontSize="12"
+          d:Margin="0,0,0,0"
+          d:Text="Part of speech"
+          Background="Transparent"
+          BorderThickness="0"
+          FontFamily="{DynamicResource AppFont}"
+          FontSize="{DynamicResource DescTextSize}"
+          Foreground="{DynamicResource DescTextColor}"
+          IsReadOnly="True"
+          Text=""
+          UseLayoutRounding="True" />
+
+        <TextBox
+          x:Name="Definition"
+          Grid.Row="3"
+          MaxWidth="{DynamicResource MaxDetailsWidth}"
+          Margin="{DynamicResource DescTextMargin}"
+          d:FontSize="12"
+          d:Margin="0"
+          d:MaxWidth="360"
+          d:Text="definition for the word goes here. It may be long and so will need to be scrollable"
+          Background="Transparent"
+          BorderThickness="0"
+          FontFamily="{DynamicResource AppFont}"
+          FontSize="{DynamicResource DescTextSize}"
+          Foreground="{DynamicResource DescTextColor}"
+          IsReadOnly="True"
+          Text=""
+          TextWrapping="Wrap"
+          UseLayoutRounding="True" />
+
+        <TextBox
+          x:Name="Example"
+          Grid.Row="4"
+          MaxWidth="{DynamicResource MaxDetailsWidth}"
+          Margin="{DynamicResource ExtraDetailsTextMargin}"
+          d:FontSize="12"
+          d:Margin="0"
+          d:MaxWidth="360"
+          d:Text="&#x0a;E.g., The example of this meaning in use. It may be long and so will need to be scrollable"
+          Background="Transparent"
+          BorderThickness="0"
+          FontFamily="{DynamicResource AppFont}"
+          FontSize="{DynamicResource ExtraDetailsTextSize}"
+          Foreground="{DynamicResource ExtraDetailsTextColor}"
+          IsReadOnly="True"
+          Text=""
+          TextWrapping="Wrap"
+          UseLayoutRounding="True" />
+
+        <TextBox
+          x:Name="SynonymsAndAntonyms"
+          Grid.Row="5"
+          MaxWidth="{DynamicResource MaxDetailsWidth}"
+          Margin="{DynamicResource ExtraDetailsTextMargin}"
+          d:FontSize="12"
+          d:Margin="0"
+          d:MaxWidth="360"
+          d:Text="&#x0a;Synonyms:&#x0a;Word1, Word2, Word3, Word4&#x0a;&#x0a;Antonyms:&#x0a;Word1, Word2, Word3, Word4"
+          Background="Transparent"
+          BorderThickness="0"
+          FontFamily="{DynamicResource AppFont}"
+          FontSize="{DynamicResource ExtraDetailsTextSize}"
+          Foreground="{DynamicResource ExtraDetailsTextColor}"
+          IsReadOnly="True"
+          Text=""
+          TextWrapping="Wrap"
+          UseLayoutRounding="True" />
+
+
+      </Grid>
+      <Grid Grid.Column="1" VerticalAlignment="Center">
+        <ListView
+          x:Name="ButtonsListView"
+          Margin="{DynamicResource ContextPaneListMargin}"
+          HorizontalAlignment="{DynamicResource ContextPaneListHorizontalAlignment}"
+          HorizontalContentAlignment="{DynamicResource ContextPaneListContentHorizontalAlignment}"
+          d:HorizontalAlignment="Center"
+          d:HorizontalContentAlignment="Stretch"
+          d:Margin="-50,0,0,0"
+          Background="Transparent"
+          BorderBrush="Transparent"
+          BorderThickness="0"
+          KeyboardNavigation.DirectionalNavigation="Cycle"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          SelectionMode="Single">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="1*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                  Grid.Column="1"
+                  Margin="{DynamicResource ContextPaneListItemContentMargin}"
+                  Padding="{DynamicResource ContextPaneListItemTextPadding}"
+                  d:FontSize="10"
+                  d:Margin="5"
+                  d:Padding="5"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  Content="{Binding text}"
+                  FontFamily="{DynamicResource AppFont}"
+                  FontSize="{DynamicResource ContextPaneListItemSize}"
+                  Foreground="{DynamicResource ContextPaneListItemColor}"
+                  Style="{StaticResource TransparentStyle}"
+                  UseLayoutRounding="True" />
+              </Grid>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+      </Grid>
+    </Grid>
+  </Border>
+</src:ItemContextPane>
