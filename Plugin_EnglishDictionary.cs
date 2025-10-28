@@ -83,7 +83,7 @@ namespace Plugin_EnglishDictionary {
         using (var sr = new StreamReader(response.GetResponseStream())) {
           definitions = sr.ReadToEnd();
         }
-        return parseDefinitions(definitions);
+        return FuzzySearch.sort(command, parseDefinitions(definitions)).ToList();
       } catch (Exception) {
         return new List<ListItem>();
       }
