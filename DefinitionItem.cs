@@ -1,5 +1,6 @@
 ﻿using Quokka;
 using Quokka.ListItems;
+using Quokka.PluginArch;
 using System.Windows.Media.Imaging;
 
 
@@ -15,10 +16,12 @@ namespace Plugin_EnglishDictionary {
     internal List<Phonetic> phonetics;
 
     public DefinitionItem(string word, string definition, string example, string partOfSpeech, List<string> synonyms, List<string> antonyms, List<Phonetic> phonetics) {
-      this.Name = definition;
-      this.Description = "Part of Speech: " + partOfSpeech;
-      this.Icon = new BitmapImage(new Uri(
-          Environment.CurrentDirectory + "\\PlugBoard\\Plugin_EnglishDictionary\\Plugin\\dictionary.png"));
+      Name = definition;
+      Description = "Part of Speech: " + partOfSpeech;
+      UiDispatcher.BeginInvoke(() => {
+        Icon = new BitmapImage(new Uri(
+            Environment.CurrentDirectory + "\\PlugBoard\\Plugin_EnglishDictionary\\Plugin\\dictionary.png"));
+      });
 
       if (example != "") {
         this.Description += " | Example: " + example;
