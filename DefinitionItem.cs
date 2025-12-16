@@ -1,12 +1,13 @@
 ﻿using Quokka;
 using Quokka.ListItems;
 using Quokka.PluginArch;
-using System.Windows.Media.Imaging;
 
 
-namespace Plugin_EnglishDictionary {
+namespace PluginEnglishDictionary
+{
 
-  class DefinitionItem : ListItem {
+  class DefinitionItem : ListItem
+  {
 
     internal string word;
     internal string example;
@@ -15,15 +16,16 @@ namespace Plugin_EnglishDictionary {
     internal List<string> antonyms;
     internal List<Phonetic> phonetics;
 
-    public DefinitionItem(string word, string definition, string example, string partOfSpeech, List<string> synonyms, List<string> antonyms, List<Phonetic> phonetics) {
+    public DefinitionItem(string word, string definition, string example, string partOfSpeech, List<string> synonyms, List<string> antonyms, List<Phonetic> phonetics)
+    {
       Name = definition;
       Description = "Part of Speech: " + partOfSpeech;
-      UiDispatcher.BeginInvoke(() => {
-        Icon = new BitmapImage(new Uri(
-            Environment.CurrentDirectory + "\\PlugBoard\\Plugin_EnglishDictionary\\Plugin\\dictionary.png"));
-      });
+      Icon = IconCache.GetOrAdd(
+        Environment.CurrentDirectory + "\\PlugBoard\\PluginEnglishDictionary\\Plugin\\dictionary.png"
+      );
 
-      if (example != "") {
+      if (!string.IsNullOrEmpty(example))
+      {
         this.Description += " | Example: " + example;
       }
 
@@ -35,7 +37,8 @@ namespace Plugin_EnglishDictionary {
       this.phonetics = phonetics;
     }
 
-    public override void Execute() {
+    public override void Execute()
+    {
       System.Windows.Clipboard.SetText(Name);
       App.Current.MainWindow.Close();
     }

@@ -1,13 +1,17 @@
-﻿namespace Plugin_EnglishDictionary {
+﻿namespace PluginEnglishDictionary
+{
 
   /// <summary>
   /// a definition for the word
   /// </summary>
-  public class Definition {
+  public class Definition
+  {
     /// <summary>
     /// a definition for the word
     /// </summary>
+#pragma warning disable IDE1006 // Naming Styles - matches API response
     public string definition { get; set; } = "";
+
     /// <summary>
     /// synonyms for the word in this context
     /// </summary>
@@ -25,7 +29,8 @@
   /// <summary>
   /// A License, data is under
   /// </summary>
-  public class License {
+  public class License
+  {
     /// <summary>
     /// name of license
     /// </summary>
@@ -39,7 +44,8 @@
   /// <summary>
   /// The different definitions of the word when used in a specific part of speech
   /// </summary>
-  public class Meaning {
+  public class Meaning
+  {
     /// <summary>
     /// a part of speech this word can be used in
     /// </summary>
@@ -61,7 +67,8 @@
   /// <summary>
   /// A pronunciation of the word
   /// </summary>
-  public class Phonetic {
+  public class Phonetic
+  {
     /// <summary>
     /// Phonetic notation for this pronunciation
     /// </summary>
@@ -83,7 +90,8 @@
   /// <summary>
   /// Part of the response from the dictionary API, representing a single word for a specific part of speech
   /// </summary>
-  public class ApiResponse {
+  public class ApiResponse
+  {
     /// <summary>
     /// The word defined
     /// </summary>
@@ -109,5 +117,5 @@
     /// </summary>
     public List<string> sourceUrls { get; set; } = new();
   }
-
+#pragma warning restore IDE1006 // Naming Styles
 }
