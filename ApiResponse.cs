@@ -1,4 +1,6 @@
-﻿namespace PluginEnglishDictionary
+using System.Collections.ObjectModel;
+
+namespace PluginEnglishDictionary
 {
 
   /// <summary>
@@ -15,11 +17,11 @@
     /// <summary>
     /// synonyms for the word in this context
     /// </summary>
-    public List<string> synonyms { get; set; } = new();
+    public Collection<string> synonyms { get; } = new();
     /// <summary>
     /// antonyms for the word in this context
     /// </summary>
-    public List<string> antonyms { get; set; } = new();
+    public Collection<string> antonyms { get; } = new();
     /// <summary>
     /// relevant example of the word being used in this context
     /// </summary>
@@ -38,7 +40,9 @@
     /// <summary>
     /// link to license details
     /// </summary>
+#pragma warning disable CA1056 // Uri properties should not be strings
     public string url { get; set; } = "";
+#pragma warning restore CA1056
   }
 
   /// <summary>
@@ -53,15 +57,15 @@
     /// <summary>
     /// definitions for the word when it is used in this part of speech
     /// </summary>
-    public List<Definition> definitions { get; set; } = new();
+    public Collection<Definition> definitions { get; } = new();
     /// <summary>
     /// synonyms for the word in this context
     /// </summary>
-    public List<string> synonyms { get; set; } = new();
+    public Collection<string> synonyms { get; } = new();
     /// <summary>
     /// antonyms for the word in this context
     /// </summary>
-    public List<string> antonyms { get; set; } = new();
+    public Collection<string> antonyms { get; } = new();
   }
 
   /// <summary>
@@ -80,7 +84,9 @@
     /// <summary>
     /// The source of the data
     /// </summary>
+#pragma warning disable CA1056 // Uri properties should not be strings
     public string sourceUrl { get; set; } = "";
+#pragma warning restore CA1056
     /// <summary>
     /// The License the data is under
     /// </summary>
@@ -103,11 +109,11 @@
     /// <summary>
     /// Different phonetic notations for different pronunciations
     /// </summary>
-    public List<Phonetic> phonetics { get; set; } = new();
+    public Collection<Phonetic> phonetics { get; } = new();
     /// <summary>
     /// The different definitions of the word when used in a specific part of speech
     /// </summary>
-    public List<Meaning> meanings { get; set; } = new();
+    public Collection<Meaning> meanings { get; } = new();
     /// <summary>
     /// The License the data is under
     /// </summary>
@@ -115,7 +121,7 @@
     /// <summary>
     /// The source of the data
     /// </summary>
-    public List<string> sourceUrls { get; set; } = new();
+    public Collection<string> sourceUrls { get; } = new();
   }
 #pragma warning restore IDE1006 // Naming Styles
 }

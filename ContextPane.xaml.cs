@@ -1,4 +1,4 @@
-﻿using Quokka;
+using Quokka;
 using Quokka.ListItems;
 
 using System.Windows;
@@ -22,27 +22,27 @@ namespace PluginEnglishDictionary
     {
       InitializeComponent();
       this.Item = (DefinitionItem)((SearchWindow)Application.Current.MainWindow).SelectedItem!;
-      foreach (Phonetic phonetic in Item.phonetics) phonetics.Add(new WordPhonetics(phonetic));
+      foreach (Phonetic phonetic in Item.Phonetics) phonetics.Add(new WordPhonetics(phonetic));
       ButtonsListView.ItemsSource = phonetics;
-      WordText.Text = Item.word;
-      PartOfSpeech.Text = Item.partOfSpeech;
+      WordText.Text = Item.Word;
+      PartOfSpeech.Text = Item.PartOfSpeech;
       Definition.Text = Item.Name;
-      Example.Text = Item.example;
-      if (Item.synonyms.Count > 0)
+      Example.Text = Item.Example;
+      if (Item.Synonyms.Count > 0)
       {
         SynonymsAndAntonyms.Text = "\nSynonyms:\n";
-        foreach (String synonym in Item.synonyms) { SynonymsAndAntonyms.Text += synonym + ", "; }
+        foreach (string synonym in Item.Synonyms) { SynonymsAndAntonyms.Text += synonym + ", "; }
         SynonymsAndAntonyms.Text = SynonymsAndAntonyms.Text.Remove(SynonymsAndAntonyms.Text.Length - 2); //remove last comma & space
       }
-      if (Item.antonyms.Count > 0)
+      if (Item.Antonyms.Count > 0)
       {
         SynonymsAndAntonyms.Text += "\n\nAntonyms:\n";
-        foreach (String antonym in Item.antonyms) { SynonymsAndAntonyms.Text += antonym + ", "; }
+        foreach (string antonym in Item.Antonyms) { SynonymsAndAntonyms.Text += antonym + ", "; }
         SynonymsAndAntonyms.Text = SynonymsAndAntonyms.Text.Remove(SynonymsAndAntonyms.Text.Length - 2); //remove last comma & space
       }
     }
 
-    private class WordPhonetics
+    private sealed class WordPhonetics
     {
       public string Text { get; set; } = "";
       public string Audio { get; set; } = "";

@@ -1,22 +1,25 @@
-﻿using Quokka;
+using Quokka;
 using Quokka.ListItems;
 using Quokka.PluginArch;
 
 
+using System.Collections.ObjectModel;
+
 namespace PluginEnglishDictionary
 {
 
-  class DefinitionItem : ListItem
+  sealed class DefinitionItem : ListItem
   {
 
-    internal string word;
-    internal string example;
-    internal string partOfSpeech;
-    internal List<string> synonyms;
-    internal List<string> antonyms;
-    internal List<Phonetic> phonetics;
+    internal string Word { get; }
+    internal string Example { get; }
+    internal string PartOfSpeech { get; }
+    internal Collection<string> Synonyms { get; }
+    internal Collection<string> Antonyms { get; }
+    internal Collection<Phonetic> Phonetics { get; }
 
-    public DefinitionItem(string word, string definition, string example, string partOfSpeech, List<string> synonyms, List<string> antonyms, List<Phonetic> phonetics)
+    public DefinitionItem(string word, string definition, string example, string partOfSpeech,
+                          Collection<string> synonyms, Collection<string> antonyms, Collection<Phonetic> phonetics)
     {
       Name = definition;
       Description = "Part of Speech: " + partOfSpeech;
@@ -26,15 +29,15 @@ namespace PluginEnglishDictionary
 
       if (!string.IsNullOrEmpty(example))
       {
-        this.Description += " | Example: " + example;
+        Description += " | Example: " + example;
       }
 
-      this.word = word;
-      this.example = example;
-      this.partOfSpeech = partOfSpeech;
-      this.synonyms = synonyms;
-      this.antonyms = antonyms;
-      this.phonetics = phonetics;
+      Word = word;
+      Example = example;
+      PartOfSpeech = partOfSpeech;
+      Synonyms = synonyms;
+      Antonyms = antonyms;
+      Phonetics = phonetics;
     }
 
     public override void Execute()

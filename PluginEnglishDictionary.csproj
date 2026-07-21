@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net4.8-windows</TargetFramework>
@@ -14,7 +14,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 
     <Product>PluginEnglishDictionary</Product>
-    <BaseOutputPath>G:\Quokka\Quokka\PlugBoard\PluginEnglishDictionary</BaseOutputPath>
+    <BaseOutputPath>..\BuildOutput\Quokka\PlugBoard\PluginEnglishDictionary</BaseOutputPath>
     <Configurations>Plugin</Configurations>
 
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -27,6 +27,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Quokka\Quokka.csproj"></ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Tests\**" />
+    <Page Remove="Tests\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,6 +11,7 @@ namespace PluginEnglishDictionary
   /// <summary>
   /// The English Dictionary Plugin
   /// </summary>
+#pragma warning disable CA1711 // Type name ends in Dictionary
   public partial class EnglishDictionary : Plugin
   {
 
@@ -62,10 +63,9 @@ namespace PluginEnglishDictionary
         {
           foreach (Definition definition in meaning.definitions)
           {
-            List<string> synonyms = definition.synonyms;
-            List<string> antonyms = definition.antonyms;
-            synonyms.AddRange(meaning.synonyms);
-            antonyms.AddRange(meaning.antonyms);
+            Collection<string> synonyms = new(definition.synonyms.Concat(meaning.synonyms).ToList());
+            Collection<string> antonyms = new(definition.antonyms.Concat(meaning.antonyms).ToList());
+
             definitions.Add(
               new DefinitionItem(word: word.word, definition: definition.definition, example: definition.example,
               partOfSpeech: meaning.partOfSpeech, synonyms: synonyms,
