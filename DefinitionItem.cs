@@ -1,14 +1,12 @@
-using Quokka;
 using Quokka.ListItems;
 using Quokka.PluginArch;
-
-
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace PluginEnglishDictionary
 {
 
-  sealed class DefinitionItem : ListItem
+  internal sealed class DefinitionItem : ListItem
   {
 
     internal string Word { get; }
@@ -42,8 +40,8 @@ namespace PluginEnglishDictionary
 
     public override void Execute()
     {
-      System.Windows.Clipboard.SetText(Name);
-      App.Current.MainWindow.Close();
+      Clipboard.SetText(Name);
+      Application.Current.MainWindow.Close();
     }
   }
 

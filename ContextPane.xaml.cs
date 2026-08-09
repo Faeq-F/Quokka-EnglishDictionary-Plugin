@@ -21,8 +21,12 @@ namespace PluginEnglishDictionary
     public ContextPane()
     {
       InitializeComponent();
-      this.Item = (DefinitionItem)((SearchWindow)Application.Current.MainWindow).SelectedItem!;
-      foreach (Phonetic phonetic in Item.Phonetics) phonetics.Add(new WordPhonetics(phonetic));
+      Item = (DefinitionItem)((SearchWindow)Application.Current.MainWindow).SelectedItem!;
+      foreach (Phonetic phonetic in Item.Phonetics)
+      {
+        phonetics.Add(new WordPhonetics(phonetic));
+      }
+
       ButtonsListView.ItemsSource = phonetics;
       WordText.Text = Item.Word;
       PartOfSpeech.Text = Item.PartOfSpeech;
@@ -42,16 +46,10 @@ namespace PluginEnglishDictionary
       }
     }
 
-    private sealed class WordPhonetics
+    private sealed class WordPhonetics(Phonetic phonetic)
     {
-      public string Text { get; set; } = "";
-      public string Audio { get; set; } = "";
-      public WordPhonetics(Phonetic phonetic)
-      {
-        this.Text = phonetic.text;
-        this.Audio = phonetic.audio;
-      }
-
+      public string Text { get; set; } = phonetic.text;
+      public string Audio { get; set; } = phonetic.audio;
     }
   }
 }

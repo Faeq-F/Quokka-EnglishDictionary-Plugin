@@ -3,7 +3,7 @@ using Quokka.ListItems;
 using Quokka.PluginArch;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 
 namespace PluginEnglishDictionary
 {
@@ -14,18 +14,22 @@ namespace PluginEnglishDictionary
 #pragma warning disable CA1711 // Type name ends in Dictionary
   public partial class EnglishDictionary : Plugin
   {
+    private static readonly HttpClient HttpClient = new();
 
-    private static PluginSettings pluginSettings = new();
-    internal static PluginSettings PluginSettings { get => pluginSettings; set => pluginSettings = value; }
+    private static readonly Lazy<PluginSettings> _lazyPluginSettings = new(() =>
+    {
+      string fileName = Path.Combine(Environment.CurrentDirectory, "PlugBoard", "PluginEnglishDictionary", "Plugin", "settings.json");
+      return File.Exists(fileName)
+        ? JsonConvert.DeserializeObject<PluginSettings>(File.ReadAllText(fileName)) ?? new PluginSettings()
+        : new PluginSettings();
+    });
+
+    internal static PluginSettings PluginSettings => _lazyPluginSettings.Value;
 
     /// <summary>
-    /// Loads Plugin specific settings
+    /// Initializes a new instance of the <see cref="EnglishDictionary"/> class.
     /// </summary>
-    public EnglishDictionary()
-    {
-      string fileName = Environment.CurrentDirectory + "\\PlugBoard\\PluginEnglishDictionary\\Plugin\\settings.json";
-      PluginSettings = JsonConvert.DeserializeObject<PluginSettings>(File.ReadAllText(fileName))!;
-    }
+    public EnglishDictionary() { }
 
     /// <summary>
     /// <inheritdoc/>
@@ -88,15 +92,8 @@ namespace PluginEnglishDictionary
       command = command.Substring(PluginSettings.DictionarySignifier.Length);
       try
       {
-        var uri = new Uri("https://api.dictionaryapi.dev/api/v2/entries/en/" + command);
-        WebRequest request = WebRequest.CreateHttp(uri);
-        request.ContentType = "application/json; charset=utf-8";
-        string definitions;
-        var response = (HttpWebResponse)request.GetResponse();
-        using (var sr = new StreamReader(response.GetResponseStream()))
-        {
-          definitions = sr.ReadToEnd();
-        }
+        string uri = "https://api.dictionaryapi.dev/api/v2/entries/en/" + Uri.EscapeDataString(command);
+        string definitions = HttpClient.GetStringAsync(new Uri(uri)).GetAwaiter().GetResult();
         return new Collection<ListItem>(FuzzySearch.Sort(command, ParseDefinitions(definitions)).ToList());
       }
       catch (Exception)
